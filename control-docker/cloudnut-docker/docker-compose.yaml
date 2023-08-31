@@ -1,0 +1,23 @@
+version: '3'
+services:
+  docker-in-docker:
+    image: docker:24.0.5-dind-alpine3.18
+    privileged: true
+    restart: always
+    environment:
+      DOCKER_TLS_CERTDIR:
+    expose:
+      - 2375
+      - 2376
+
+  docker-din-local:
+    image: cloudnut-docker-dind:v1
+    links:
+      - docker-in-docker
+    restart: always
+    hostname: cloudnut-docker
+    privileged: true
+    environment:
+      DOCKER_HOST: tcp://docker-in-docker:2375
+    ports:
+      - '18021:22'

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  docker-din-local:
+    image: cloudnut-docker-dind:v1
+    restart: always
+    hostname: cloudnut-docker
+    privileged: true
+    ports:
+      - '18021:22'
